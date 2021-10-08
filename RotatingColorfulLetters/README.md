@@ -1,1 +1,1 @@
-# RotatingColorfulLetters
+# Rotating Colorful Letters
