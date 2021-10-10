@@ -9,4 +9,4 @@ ComputerGraphics -> Projects -> Apps -> SourceCode -> "ProjectName"
 - Portal: Simulation of an opject passing through a portal. Inspiration drawn from the Portal video games.
 - Letters Orbiting Cube: Two-dimensional letters orbiting a three-dimensional cube.
 - Rotating Colorful Letters: Use keyboard commands to increase the rotation speed and scaling rate
-- Transform Colorful Letters 3D: Use mouse + keyboard commands to rotate, scale, and translate the letters.
+- Transform Colorful Letters 3D: Use mouse and keyboard commands to rotate, scale, and translate the letters.
