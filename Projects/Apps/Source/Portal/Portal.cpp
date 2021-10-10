@@ -1,18 +1,22 @@
 // Portal.cpp
 // (c) Justin Thoreson
-// 9 October 2021
+// 10 October 2021
 
 #include <glad.h>
 #include <glfw3.h>
 #include <stdio.h>
 #include <VecMat.h>
+#include "Camera.h"
 #include "GLXtras.h"
-
-const int SCREEN_SIZE = 750;
 
 // GPU identifiers
 GLuint vBuffer = 0;
 GLuint program = 0;
+
+// Camera
+const int SCREEN_SIZE = 750;
+float fieldOfView = 30;
+Camera camera(SCREEN_SIZE, SCREEN_SIZE, vec3(0, 0, 0), vec3(0, 0, -1), fieldOfView);
 
 // Define vertices (cube)
 float l = -1, r = 1, b = -1, t = 1, n = -1, f = 1; // left, right, bottom, top, near, far
@@ -61,7 +65,7 @@ void InitVertexBuffer() {
     glBufferData(GL_ARRAY_BUFFER, sPnts + sCols, NULL, GL_STATIC_DRAW);
     // Load data to the GPU
     glBufferSubData(GL_ARRAY_BUFFER, 0, sPnts, vertices);     // Start at beginning of buffer, for length of points array
-    glBufferSubData(GL_ARRAY_BUFFER, sPnts, sCols, colors); // Start at end of points array, for length of colors array
+    glBufferSubData(GL_ARRAY_BUFFER, sPnts, sCols, colors);   // Start at end of points array, for length of colors array
 }
 
 bool InitShader() {
@@ -71,16 +75,14 @@ bool InitShader() {
     return program != 0;
 }
 
-// Interactions and perspective transformation
+// Interactions and transformations
 
-vec2 mouseDown(0, 0);                       // Location of last mouse down
-vec2 rotOld(0, 0), rotNew(0, 0);            // .x is rotation about Y-axis in degress, .y about X-axis
-vec3 tranOld(0, 0, 0), tranNew(0, 0, -1);
-static float rotZ = 0;
-static float rotSpeed = .3f;
-static float tranSpeed = .0025f;
 static float scalar = .3f;
-static float fieldOfView = 30;
+
+bool Shift(GLFWwindow* w) {
+    return glfwGetKey(w, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS ||
+        glfwGetKey(w, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS;
+}
 
 void MouseButton(GLFWwindow* w, int butn, int action, int mods) {
     // Called when mouse button pressed or released
@@ -88,46 +90,33 @@ void MouseButton(GLFWwindow* w, int butn, int action, int mods) {
         // Save reference for MouseDrag
         double x, y;
         glfwGetCursorPos(w, &x, &y);
-        mouseDown = vec2((float) x, (float) y);
+        camera.MouseDown((int)x, (int)y);
     }
     if (action == GLFW_RELEASE) {
         // Save reference rotation
-        rotOld = rotNew;
-        tranOld = tranNew;
+        camera.MouseUp();
     }
 }
 
 void MouseMove(GLFWwindow* w, double x, double y) {
     if (glfwGetMouseButton(w, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-        // Compute mouse drag difference and update rotation
-        vec2 mouse((float)x, (float)y), dif = mouse - mouseDown;
-        bool shift = glfwGetKey(w, GLFW_KEY_LEFT_SHIFT) ||
-                     glfwGetKey(w, GLFW_KEY_RIGHT_SHIFT);
-        // Translate or rotate about X-axis, Y-axis
-        if (shift)
-            tranNew = tranOld + tranSpeed * vec3(dif.x, -dif.y, 0);
-        else
-            rotNew = rotOld + rotSpeed * dif;
+        camera.MouseDrag((int)x, (int)y, Shift(w));
     }
 }
 
 void MouseWheel(GLFWwindow* w, double ignore, double spin) {
-    tranNew.z += spin > 0 ? -.1f : .1f;
-    tranOld = tranNew;
+    camera.MouseWheel(spin > 0, Shift(w));
 }
 
 void Keyboard(GLFWwindow* w, int key, int scancode, int action, int mods) {
-    bool shift = mods & GLFW_MOD_SHIFT;
     if (action == GLFW_PRESS) {
-        switch (key) {
-        case GLFW_KEY_ESCAPE:
+        float fieldOfView = camera.GetFOV();
+        bool shift = mods & GLFW_MOD_SHIFT;
+        if (key == GLFW_KEY_ESCAPE)
             glfwSetWindowShouldClose(w, GLFW_TRUE);
-            break;
-        case 'F':
-            fieldOfView += shift ? -5 : 5;
-            fieldOfView = fieldOfView < 5 ? 5 : fieldOfView > 150 ? 150 : fieldOfView;
-            break;
-        }
+        fieldOfView += key == 'F' ? shift ? -5 : 5 : 0;
+        fieldOfView = fieldOfView < 5 ? 5 : fieldOfView > 150 ? 150 : fieldOfView;
+        camera.SetFOV(fieldOfView);
     }
 }
 
@@ -141,24 +130,16 @@ void Display(GLFWwindow *w) {
     glClear(GL_COLOR_BUFFER_BIT);
     glClear(GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
-    // Access GPU vertex buffer
+    // Init shader program, set vertex pull for points and colors
     glUseProgram(program);
-    glBindBuffer(GL_ARRAY_BUFFER, vBuffer);
-    // Associate position and color input to shader with position and color arrays in vertex buffer
+    glBindBuffer(GL_ARRAY_BUFFER, vBuffer);  
     VertexAttribPointer(program, "point", 3, 0, (void*) 0);
     VertexAttribPointer(program, "color", 3, 0, (void*) sizeof(vertices));
     // Update view transformation
     int screenWidth, screenHeight;
     glfwGetWindowSize(w, &screenWidth, &screenHeight);
-    float aspectRatio = (float)screenWidth / (float)screenHeight;
-    float nearDist = .001f, farDist = 500;
     float dt = (float)(clock() - startTime) / CLOCKS_PER_SEC;
-    mat4 persp = Perspective(fieldOfView, aspectRatio, nearDist, farDist);
-    mat4 scale = Scale(.1f);
-    mat4 rot = RotateY(rotNew.x) * RotateX(rotNew.y);
-    mat4 tran = Translate(tranNew);
-    mat4 modelView = tran * rot * scale;
-    mat4 view = persp * modelView;
+    mat4 view = camera.fullview * Scale(.1f);
     // Draw elements
     // Black cubes
     SetUniform(program, "view", view * Translate(3.25f, 0, 0) * Scale(1.25f, 1.f, 1.f));
