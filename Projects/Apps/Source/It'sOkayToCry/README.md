@@ -7,5 +7,6 @@ Just let it out...
   - Release: All is well as the crying face smiles again :)
 - Left-click and drag: rotate the view
 - Shift + left-click and drag: Move (translate) the objects in the scene
-- F: Update field of view
-- Scroll: Zoom in and out
+- F and Shift + F: Update field of view
+- Scroll: Rotate view
+- Scroll + Shift: Zoom in and out
