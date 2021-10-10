@@ -7,5 +7,5 @@ Using perspective and matrices, I transformed cubes such that there is an illusi
 ## Commands:
 - Left-click and drag: rotate the view
 - Shift + left-click and drag: Move (translate) the objects in the scene
-- F: Update field of view
+- F and Shift + F: Update field of view
 - Scroll: Zoom in and out
