@@ -1,6 +1,6 @@
 # It's Okay to Cry
 Just let it out...
-:) -> :'( -> :) -> :'( -> ...
+:) -> :'(
 
 ## Commands
 - Space bar: The smiling face frowns and tears start to fall :'(
