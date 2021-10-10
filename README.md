@@ -5,7 +5,7 @@ This repository contains various personal projects that I have created within th
 ComputerGraphics -> Projects -> Apps -> SourceCode -> "ProjectName"
 
 ## Projects:
-- It's Okay to Cry: Don't press the space bar unless you want him to cry!
+- It's Okay to Cry: Just let it out...
 - Portal: Simulation of an opject passing through a portal. Inspiration drawn from the Portal video games.
 - Letters Orbiting Cube: Two-dimensional letters orbiting a three-dimensional cube.
 - Rotating Colorful Letters: Use keyboard commands to increase the rotation speed and scaling rate
