@@ -1,6 +1,5 @@
 # It's Okay to Cry
 Just let it out...
-:) -> :'(
 
 ## Commands
 - Space bar: 
