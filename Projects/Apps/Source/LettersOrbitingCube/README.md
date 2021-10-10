@@ -4,7 +4,7 @@ There are rings composed of smaller cubes that rotate around the central cube as
 This was my first three-dimensional perspective experiment.
 
 ## Commands
-- Left-click and drag: rotate the view
-- Shift + left-click and drag: Move (translate) the objects in the scene
+- Left-click + drag: rotate the view
+- Shift + left-click + drag: Move (translate) the objects in the scene
 - F: Update field of view
 - Scroll: Zoom in and out
