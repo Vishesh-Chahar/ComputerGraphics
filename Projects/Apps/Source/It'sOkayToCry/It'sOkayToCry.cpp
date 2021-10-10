@@ -1,18 +1,22 @@
 // It'sOkayToCry.cpp 
 // (c) Justin Thoreson
-// 9 October 2021
+// 10 October 2021
 
 #define _USE_MATH_DEFINES
 
 #include <glad.h>
 #include <GLFW/glfw3.h>
-#include "GLXtras.h"
 #include <time.h>
 #include <vector>
 #include "VecMat.h"
+#include "Camera.h"
+#include "GLXtras.h"
 
 const float SCREEN_SIZE = 800;
+float fieldOfView = 30;
+Camera camera(SCREEN_SIZE, SCREEN_SIZE, vec3(0, 0, 0), vec3(0, 0, -1), fieldOfView);
 
+// GPU identifiers
 GLuint vBuffer = 0;
 GLuint program = 0;
 
@@ -121,17 +125,15 @@ void InitVertexBuffer() {
 
 // Interactions and perspective transformations
 
-vec2 mouseDown(0, 0);                   // Location of last mouse down
-vec2 rotOld(0, 0), rotNew(0, 0);        // .x is rotation about Y-axis in degress, .y about X-axis
-vec3 tranOld(0, 0, 0), tranNew(0, 0, -1);
-float rotZ = 0;
-static float rotSpeed = .3f;
-static float tranSpeed = .0025f;
 static float scalar = .3f;
-static float fieldOfView = 30;
 // Smile or frown
 static float cheekPosY = -.3f;
 static float mouthPosY = -.5;
+
+bool Shift(GLFWwindow* w) {
+	return glfwGetKey(w, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS ||
+		glfwGetKey(w, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS;
+}
 
 void MouseButton(GLFWwindow* w, int butn, int action, int mods) {
 	// Called when mouse button pressed or released
@@ -139,39 +141,35 @@ void MouseButton(GLFWwindow* w, int butn, int action, int mods) {
 		// Save reference for MouseDrag
 		double x, y;
 		glfwGetCursorPos(w, &x, &y);
-		mouseDown = vec2((float)x, (float)y);
+		camera.MouseDown((int)x, (int)y);
 	}
 	if (action == GLFW_RELEASE) {
 		// Save reference rotation
-		rotOld = rotNew;
-		tranOld = tranNew;
+		camera.MouseUp();
 	}
 }
 
 void MouseMove(GLFWwindow* w, double x, double y) {
 	if (glfwGetMouseButton(w, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-		// Compute mouse drag difference and update rotation
-		//vec2 dif((float) x - mouseDown.x, (float) y - mouseDown.y);
-		vec2 mouse((float)x, (float)y), dif = mouse - mouseDown;
-		bool shift = glfwGetKey(w, GLFW_KEY_LEFT_SHIFT) ||
-			glfwGetKey(w, GLFW_KEY_RIGHT_SHIFT);
-		// Translate or rotate about X-axis, Y-axis
-		if (shift)
-			tranNew = tranOld + tranSpeed * vec3(dif.x, -dif.y, 0);
-		else
-			rotNew = rotOld + rotSpeed * dif;
+		camera.MouseDrag((int)x, (int)y, Shift(w));
 	}
 }
 
 void MouseWheel(GLFWwindow* w, double ignore, double spin) {
-	tranNew.z += spin > 0 ? -.1f : .1f;
-	tranOld = tranNew;
+	camera.MouseWheel(spin > 0, Shift(w));
 }
 
-void Keyboard(GLFWwindow* window, int key, int scancode, int action, int mods) {
-	if (key == GLFW_KEY_ESCAPE || key == GLFW_KEY_Q) {
-		glfwSetWindowShouldClose(window, GLFW_TRUE);
+void Keyboard(GLFWwindow* w, int key, int scancode, int action, int mods) {
+	if (action == GLFW_PRESS) {
+		if (key == GLFW_KEY_ESCAPE)
+			glfwSetWindowShouldClose(w, GLFW_TRUE);
+		float fieldOfView = camera.GetFOV();
+		bool shift = mods & GLFW_MOD_SHIFT;
+		fieldOfView += key == 'F' ? shift ? -5 : 5 : 0;
+		fieldOfView = fieldOfView < 5 ? 5 : fieldOfView > 150 ? 150 : fieldOfView;
+		camera.SetFOV(fieldOfView);
 	}
+	// Invert mouth
 	if (key == GLFW_KEY_SPACE) {
 		if (action == GLFW_PRESS) {
 			spaceDown = true;
@@ -191,24 +189,21 @@ void Keyboard(GLFWwindow* window, int key, int scancode, int action, int mods) {
 // Application
 
 void Display(GLFWwindow* w) {
+	// Clear background
 	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
+	// Init shader program, set vertex pull for points and colors
 	glUseProgram(program);
 	glBindBuffer(GL_ARRAY_BUFFER, vBuffer);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 	VertexAttribPointer(program, "point", 3, 0, (void*)0);
+	// Update view transformations
 	int screenWidth, screenHeight;
 	glfwGetWindowSize(w, &screenWidth, &screenHeight);
 	glViewport(0, 0, screenWidth, screenHeight);
-	float aspectRatio = (float)screenWidth / (float)screenHeight;
-	float nearDist = .001f, farDist = 500;
-	mat4 persp = Perspective(fieldOfView, aspectRatio, nearDist, farDist);
-	mat4 scale = Scale(.3f);
-	mat4 rot = RotateY(rotNew.x) * RotateX(rotNew.y);
-	mat4 tran = Translate(tranNew);
-	mat4 view = persp * tran * rot * scale;
+	mat4 view = camera.fullview * Scale(.3f);
 	// Render eyes
 	mat4 left = view * Translate(-.5f, .3f, 0) * Scale(.1f);
 	mat4 right = view * Translate(.5f, .3f, 0) * Scale(.1f);
