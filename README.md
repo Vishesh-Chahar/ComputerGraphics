@@ -12,6 +12,6 @@ ComputerGraphics -> Projects -> Apps -> Source -> \<ProjectName\>
 - Transform Colorful Letters 3D: Use mouse and keyboard commands to rotate, scale, and translate the letters.
 
 ## Credit to [Jules Bloomenthal](https://www.bloomenthal.com/)
-- My graphics professor
-- Provided all header (Include) and library (Lib) files.
+- Passionate professor
+- Provided all header (Include) and library (Lib) files
 - Provided exceptional teachings
