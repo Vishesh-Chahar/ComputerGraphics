@@ -1,5 +1,5 @@
 # ComputerGraphics
-This repository contains various personal projects that I have created within the realm of computer graphics. In a sense, this repo is a compilation of my progress in learning and experimenting with computer graphics. As my imagination and knowledge continue to grow, I will upload more projects. Whatever is here, I am proud of! See credit below.
+This repository contains various personal projects that I have created within the realm of computer graphics. In a sense, this repo is a compilation of my progress in learning and experimenting with computer graphics. See credit below.
 
 ## To access my source code and executables:
 ComputerGraphics -> Projects -> Apps -> Source -> \<ProjectName\>
