@@ -11,7 +11,7 @@ ComputerGraphics -> Projects -> Apps -> Source -> \<ProjectName\>
 - Rotating Colorful Letters: Use keyboard commands to increase the rotation speed and scaling rate
 - Transform Colorful Letters 3D: Use mouse and keyboard commands to rotate, scale, and translate the letters.
 
-## Credit to [Jules Bloomenthal](bloomenthal.com)
+## Credit to [Jules Bloomenthal](https://www.bloomenthal.com/)
 - My graphics professor
 - Provided all header (Include) and library (Lib) files.
 - Provided exceptional teachings
