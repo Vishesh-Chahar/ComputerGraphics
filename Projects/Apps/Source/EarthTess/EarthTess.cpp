@@ -1,6 +1,6 @@
 // EarthTess.cpp
 // (c) Justin Thoreson
-// 6 November 2021
+// 8 November 2021
 
 #include <glad.h>
 #include <GLFW/glfw3.h>
@@ -58,7 +58,8 @@ const char *teShaderCode = R"(
 	void main() {
 		uv = gl_TessCoord.st;
 		vec3 p = PtFromWhateverThisTurnsOutToBe(uv.s, uv.t);
-		vec3 n = p;
+		// Adjust the normals as the shape changes for better shading
+		vec3 n = vec3(p.x, abs(sin(dt))*p.y, p.z);	
 		point = (modelview*vec4(p, 1)).xyz;
 		normal = (modelview*vec4(n, 0)).xyz;
 		gl_Position = persp*vec4(point, 1);
