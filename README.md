@@ -17,4 +17,4 @@ ComputerGraphics -> Projects -> Apps -> Source -> \<ProjectName\>
 ## Special thanks to [Jules Bloomenthal](https://www.bloomenthal.com/)
 - Passionate professor
 - Provided all header (Include) and library (Lib) files
-- Provided exceptional teachings
+- Amazing instructor
