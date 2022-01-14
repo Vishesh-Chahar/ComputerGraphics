@@ -10,6 +10,7 @@ ComputerGraphics -> Projects -> Apps -> Source -> \<ProjectName\>
 - EarthTess: Tessellation of Earth between sphere and cylinder
 - It's Okay to Cry: Just let it out...
 - Letters Orbiting Cube: Two-dimensional letters orbiting a three-dimensional cube.
+- Lollipop: A colorful lollipop pattern is rendered on the screen.
 - Mushroom Earth: Earth is not flat
 - Rotating Colorful Letters: Use keyboard commands to increase the rotation speed and scaling rate
 - Transform Colorful Letters 3D: Use mouse and keyboard commands to rotate, scale, and translate the letters.
