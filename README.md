@@ -10,7 +10,11 @@ This repository contains various personal projects that I have created within th
   </tr>
   <tr>
     <td>Portal Illusion </td>
-    <td>Simulation of an object passing through a portal. Inspiration drawn from the Portal video games.</td>
+    <td>
+      Simulation of an object passing through a portal 
+      <br> 
+      Inspired by the Portal video games
+    </td>
   </tr>
   <tr>
     <td>3DT</td>
