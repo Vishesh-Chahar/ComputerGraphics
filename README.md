@@ -42,7 +42,7 @@ This repository contains various personal projects that I have created within th
   </tr>
   <tr>
     <td>Transform Colorful Letters 3D</td>
-    <td>Use mouse and keyboard commands to rotate, scale, and translate the letters</td>
+    <td>Use mouse and keyboard commands to transform the letters</td>
   </tr>
 </table>
 
