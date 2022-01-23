@@ -1,6 +1,8 @@
 # Portal Illusion
 
-CPSC 5700 Computer Graphics final project
+Simulation of an object passing through a portal.\
+Inspired by the Portal video games.\
+CPSC 5700 Computer Graphics final project.
 
 ### Results:
 
