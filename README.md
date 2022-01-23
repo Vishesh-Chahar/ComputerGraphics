@@ -9,7 +9,7 @@ This repository contains various personal projects that I have created within th
     <th>Project Description</th>
   </tr>
   <tr>
-    <td>Portal Illusion </td>
+    <td><a href="./Projects/Apps/Source/PortalIllusion">Portal Illusion</a></td>
     <td>
       Simulation of an object passing through a portal 
       <br> 
@@ -17,35 +17,35 @@ This repository contains various personal projects that I have created within th
     </td>
   </tr>
   <tr>
-    <td>3DT</td>
+    <td><a href="./Projects/Apps/Source/3DT">3DT</a></td>
     <td>A three-dimensional letter T</td>
   </tr>
   <tr>
-    <td>Earth Tess</td>
+    <td><a href="./Projects/Apps/Source/EarthTess">Earth Tess</a></td>
     <td>Tessellation of Earth between sphere and cylinder</td>
   </tr>
   <tr>
-    <td>It's Okay to Cry</td>
+    <td><a href="./Projects/Apps/Source/It'sOkayToCry">It's Okay to Cry</a></td>
     <td>Just let it out...</td>
   </tr>
   <tr>
-    <td>Letters Orbiting Cube</td>
+    <td><a href="./Projects/Apps/Source/LettersOrbitingCube">Letters Orbiting Cube</a></td>
     <td>Two-dimensional letters orbiting a three-dimensional cube</td>
   </tr>
   <tr>
-    <td>Lollipop</td>
+    <td><a href="./Projects/Apps/Source/Lollipop">Lollipop</a></td>
     <td>A colorful lollipop pattern is rendered on the screen</td>
   </tr>
   <tr>
-    <td>Mushroom Earth</td>
+    <td><a href="./Projects/Apps/Source/MushroomEarth">Mushroom Earth</a></td>
     <td>Earth is not flat</td>
   </tr>
   <tr>
-    <td>Rotating Colorful Letters</td>
+    <td><a href="./Projects/Apps/Source/RotatingColorfulLetters">Rotating Colorful Letters</a></td>
     <td>Use keyboard commands to increase the rotation speed and scaling rate</td>
   </tr>
   <tr>
-    <td>Transform Colorful Letters 3D</td>
+    <td><a href="./Projects/Apps/Source/TransformColorfulLetters3D">Transform Colorful Letters 3D</a></td>
     <td>Use mouse and keyboard commands to transform the letters</td>
   </tr>
 </table>
