@@ -9,7 +9,7 @@ This repository contains various personal projects that I have created within th
     <th>Project Description</th>
   </tr>
   <tr>
-    <td><a href="./Projects/Apps/Source/PortalIllusion">Portal Illusion</a></td>
+    <td><a href="./Apps/PortalIllusion">Portal Illusion</a></td>
     <td>
       Simulation of an object passing through a portal 
       <br> 
@@ -17,35 +17,35 @@ This repository contains various personal projects that I have created within th
     </td>
   </tr>
   <tr>
-    <td><a href="./Projects/Apps/Source/3DT">3DT</a></td>
+    <td><a href="./Apps/3DT">3DT</a></td>
     <td>A three-dimensional letter T</td>
   </tr>
   <tr>
-    <td><a href="./Projects/Apps/Source/EarthTess">Earth Tess</a></td>
+    <td><a href="./Apps/EarthTess">Earth Tess</a></td>
     <td>Tessellation of Earth between sphere and cylinder</td>
   </tr>
   <tr>
-    <td><a href="./Projects/Apps/Source/It'sOkayToCry">It's Okay to Cry</a></td>
+    <td><a href="./Apps/It'sOkayToCry">It's Okay to Cry</a></td>
     <td>Just let it out...</td>
   </tr>
   <tr>
-    <td><a href="./Projects/Apps/Source/LettersOrbitingCube">Letters Orbiting Cube</a></td>
+    <td><a href="./Apps/LettersOrbitingCube">Letters Orbiting Cube</a></td>
     <td>Two-dimensional letters orbiting a three-dimensional cube</td>
   </tr>
   <tr>
-    <td><a href="./Projects/Apps/Source/Lollipop">Lollipop</a></td>
+    <td><a href="./Apps/Lollipop">Lollipop</a></td>
     <td>A colorful lollipop pattern is rendered on the screen</td>
   </tr>
   <tr>
-    <td><a href="./Projects/Apps/Source/MushroomEarth">Mushroom Earth</a></td>
+    <td><a href="./Apps/MushroomEarth">Mushroom Earth</a></td>
     <td>Earth is not flat</td>
   </tr>
   <tr>
-    <td><a href="./Projects/Apps/Source/RotatingColorfulLetters">Rotating Colorful Letters</a></td>
+    <td><a href="./Apps/RotatingColorfulLetters">Rotating Colorful Letters</a></td>
     <td>Use keyboard commands to increase the rotation speed and scaling rate</td>
   </tr>
   <tr>
-    <td><a href="./Projects/Apps/Source/TransformColorfulLetters3D">Transform Colorful Letters 3D</a></td>
+    <td><a href="./Apps/TransformColorfulLetters3D">Transform Colorful Letters 3D</a></td>
     <td>Use mouse and keyboard commands to transform the letters</td>
   </tr>
 </table>
