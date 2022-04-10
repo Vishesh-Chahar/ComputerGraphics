@@ -50,10 +50,7 @@ This repository contains various personal projects that I have created within th
   </tr>
 </table>
 
-## To access my source code and executables:
-ComputerGraphics -> Projects -> Apps -> Source -> \<ProjectName\>
-
 ## Special thanks to [Jules Bloomenthal](https://www.bloomenthal.com/)
 - Passionate professor
-- Provided all header (Include) and library (Lib) files
+- Provided header and library files
 - Amazing instructor
